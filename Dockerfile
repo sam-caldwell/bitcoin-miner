@@ -46,7 +46,6 @@ WORKDIR /opt/bitcoin
 
 RUN ./autogen.sh && \
     ./configure --enable-hardening \
-                --disable-wallet \
                 --without-gui \
                 --without-miniupnpc \
                 --with-incompatible-bdb \
