@@ -29,6 +29,7 @@ RUN apt-get install -y build-essential \
                        libboost-thread-dev \
                        libzmq3-dev \
                        doxygen \
+                       libdb++-dev \
                        apt-utils \
                        git-core
 #
