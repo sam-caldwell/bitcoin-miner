@@ -85,6 +85,7 @@ RUN apt-get install -y python3 \
                     libboost-filesystem-dev \
                     libboost-chrono-dev \
                     libboost-thread-dev \
+                    libdb++-dev \
                     libzmq3-dev
 
 COPY --from=deploy_image /opt/artifact/bitcoind /usr/local/bin/bitcoind
