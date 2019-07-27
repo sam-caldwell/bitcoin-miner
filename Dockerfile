@@ -91,11 +91,21 @@ COPY --from=deploy_image /opt/artifact/bitcoind /usr/local/bin/bitcoind
 COPY --from=deploy_image /opt/artifact/bitcoin-cli /usr/local/bin/bitcoin-cli
 COPY --from=deploy_image /opt/artifact/bitcoin-tx /usr/local/bin/bitcoin-tx
 
-RUN bitcoind -h 
-RUN bitcoin-cli -h
+RUN chmod a+x /usr/local/bin/bitcoind
+RUN chmod a+x /usr/local/bin/bitcoin-cli
+RUN chmod a+x /usr/local/bin/bitcoin-tx
+
+RUN addgroup --system --gid 1337 bitcoin && \
+    echo "" | adduser --home /opt --no-create-home --uid 1337 --gid 1337 --gecos "" --disabled-password --disabled-login --shell /bin/false bitcoin
 
 RUN mkdir /opt/data && \
-    mkdir /opt/wallet/
+    mkdir /opt/wallet/ && \
+    chown -R bitcoin: /opt
+
+USER bitcoin
+
+RUN bitcoind -h 
+RUN bitcoin-cli -h
 
 COPY bitcoin.conf /etc/bitcoin.conf
 
